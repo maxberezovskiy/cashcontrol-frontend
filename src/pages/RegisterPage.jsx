@@ -1,0 +1,82 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { registerThunk, loginThunk, selectAuthLoading, selectAuthError, clearError } from "@/store/authSlice";
+
+export default function RegisterPage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const loading = useSelector(selectAuthLoading);
+  const error = useSelector(selectAuthError);
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+  useEffect(() => { return () => { dispatch(clearError()); }; }, [dispatch]);
+
+  const onSubmit = async (data) => {
+    const result = await dispatch(registerThunk(data));
+    if (!result.error) {
+      await dispatch(loginThunk({ email: data.email, password: data.password }));
+      navigate("/");
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 w-full max-w-sm">
+        <h1 className="text-2xl font-bold text-gray-900 mb-1">Создать аккаунт</h1>
+        <p className="text-sm text-gray-500 mb-6">Начните управлять бюджетом</p>
+
+        {error && (
+          <div className="bg-red-50 text-red-700 text-sm rounded-lg px-4 py-3 mb-4">{error}</div>
+        )}
+
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Имя</label>
+            <input
+              {...register("full_name")}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+              placeholder="Иван Иванов"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input
+              type="email"
+              {...register("email", { required: "Введите email" })}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+              placeholder="you@example.com"
+            />
+            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Пароль</label>
+            <input
+              type="password"
+              {...register("password", { required: "Минимум 6 символов", minLength: { value: 6, message: "Минимум 6 символов" } })}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+              placeholder="••••••••"
+            />
+            {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
+          </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-primary-600 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-primary-700 disabled:opacity-50 transition-colors"
+          >
+            {loading ? "Создаём аккаунт..." : "Зарегистрироваться"}
+          </button>
+        </form>
+
+        <p className="text-sm text-center text-gray-500 mt-4">
+          Уже есть аккаунт?{" "}
+          <Link to="/login" className="text-primary-600 font-medium hover:underline">
+            Войти
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+}
