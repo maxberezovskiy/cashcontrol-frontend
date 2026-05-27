@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAccounts, selectAccounts, selectTotalBalance } from "@/store/accountsSlice";
+import AddAccountModal from "@/components/accounts/AddAccountModal";
 
 function formatMoney(amount) {
   return new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB", maximumFractionDigits: 0 }).format(amount);
@@ -12,13 +13,21 @@ export default function AccountsPage() {
   const dispatch = useDispatch();
   const accounts = useSelector(selectAccounts);
   const totalBalance = useSelector(selectTotalBalance);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => { dispatch(fetchAccounts()); }, [dispatch]);
 
   return (
     <div className="space-y-6">
+      {showModal && <AddAccountModal onClose={() => setShowModal(false)} />}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Счета</h1>
+        <button
+          onClick={() => setShowModal(true)}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary-500 text-white text-sm font-medium hover:bg-primary-600"
+        >
+          + Добавить
+        </button>
       </div>
 
       <div className="bg-white rounded-2xl border border-gray-200 p-5">
@@ -47,8 +56,11 @@ export default function AccountsPage() {
           </div>
         ))}
         {accounts.length === 0 && (
-          <div className="col-span-full bg-white rounded-2xl border border-dashed border-gray-300 p-10 text-center text-gray-400">
-            Добавьте первый счёт через API
+          <div
+            className="col-span-full bg-white rounded-2xl border border-dashed border-gray-300 p-10 text-center text-gray-400 cursor-pointer hover:border-primary-400 hover:text-primary-500 transition-colors"
+            onClick={() => setShowModal(true)}
+          >
+            + Добавьте первый счёт
           </div>
         )}
       </div>

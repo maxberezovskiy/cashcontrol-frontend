@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTransactions, selectTransactions, selectTransactionsLoading } from "@/store/transactionsSlice";
 import { fetchAccounts, selectAccounts } from "@/store/accountsSlice";
 import { fetchCategories, selectCategories } from "@/store/categoriesSlice";
+import AddTransactionModal from "@/components/transactions/AddTransactionModal";
 
 function formatMoney(amount) {
   return new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB", maximumFractionDigits: 0 }).format(amount);
@@ -14,6 +15,7 @@ export default function TransactionsPage() {
   const accounts = useSelector(selectAccounts);
   const categories = useSelector(selectCategories);
   const loading = useSelector(selectTransactionsLoading);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     dispatch(fetchTransactions({ limit: 100 }));
@@ -26,8 +28,15 @@ export default function TransactionsPage() {
 
   return (
     <div className="space-y-6">
+      {showModal && <AddTransactionModal onClose={() => setShowModal(false)} />}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Транзакции</h1>
+        <button
+          onClick={() => setShowModal(true)}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary-500 text-white text-sm font-medium hover:bg-primary-600"
+        >
+          + Добавить
+        </button>
       </div>
 
       <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
