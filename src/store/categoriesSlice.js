@@ -9,6 +9,14 @@ export const fetchCategories = createAsyncThunk("categories/fetch", async (_, { 
   }
 });
 
+export const createCategory = createAsyncThunk("categories/create", async (data, { rejectWithValue }) => {
+  try {
+    return await categoriesApi.create(data);
+  } catch (err) {
+    return rejectWithValue(err.response?.data?.detail);
+  }
+});
+
 const categoriesSlice = createSlice({
   name: "categories",
   initialState: { items: [], loading: false, error: null },
@@ -23,6 +31,9 @@ const categoriesSlice = createSlice({
       .addCase(fetchCategories.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(createCategory.fulfilled, (state, action) => {
+        state.items.push(action.payload);
       });
   },
 });

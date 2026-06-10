@@ -1,11 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories, selectExpenseCategories, selectIncomeCategories } from "@/store/categoriesSlice";
+import AddCategoryModal from "@/components/categories/AddCategoryModal";
 
-function CategoryList({ title, categories, color }) {
+function CategorySection({ title, categories, type, onAdd }) {
   return (
     <div className="bg-white rounded-2xl border border-gray-200 p-5">
-      <h2 className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-4">{title}</h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-sm font-semibold text-gray-600 uppercase tracking-wide">{title}</h2>
+        <button
+          onClick={onAdd}
+          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-gray-100 text-gray-600 text-xs font-medium hover:bg-gray-200 transition-colors"
+        >
+          + Добавить
+        </button>
+      </div>
       <div className="flex flex-wrap gap-2">
         {categories.map((cat) => (
           <span
@@ -28,15 +37,34 @@ function CategoryList({ title, categories, color }) {
 export default function CategoriesPage() {
   const dispatch = useDispatch();
   const expenseCategories = useSelector(selectExpenseCategories);
-  const incomeCategories = useSelector(selectIncomeCategories);
+  const incomeCategories  = useSelector(selectIncomeCategories);
+  const [modalType, setModalType] = useState(null); // "expense" | "income" | null
 
   useEffect(() => { dispatch(fetchCategories()); }, [dispatch]);
 
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold text-gray-900">Категории</h1>
-      <CategoryList title="Расходы" categories={expenseCategories} />
-      <CategoryList title="Доходы" categories={incomeCategories} />
+
+      {modalType && (
+        <AddCategoryModal
+          defaultType={modalType}
+          onClose={() => setModalType(null)}
+        />
+      )}
+
+      <CategorySection
+        title="Расходы"
+        categories={expenseCategories}
+        type="expense"
+        onAdd={() => setModalType("expense")}
+      />
+      <CategorySection
+        title="Доходы"
+        categories={incomeCategories}
+        type="income"
+        onAdd={() => setModalType("income")}
+      />
     </div>
   );
 }

@@ -23,6 +23,29 @@ export const createTransaction = createAsyncThunk(
   }
 );
 
+export const updateTransaction = createAsyncThunk(
+  "transactions/update",
+  async ({ id, data }, { rejectWithValue }) => {
+    try {
+      return await transactionsApi.update(id, data);
+    } catch (err) {
+      return rejectWithValue(err.response?.data?.detail);
+    }
+  }
+);
+
+export const deleteTransaction = createAsyncThunk(
+  "transactions/delete",
+  async (id, { rejectWithValue }) => {
+    try {
+      await transactionsApi.remove(id);
+      return id;
+    } catch (err) {
+      return rejectWithValue(err.response?.data?.detail);
+    }
+  }
+);
+
 const transactionsSlice = createSlice({
   name: "transactions",
   initialState: { items: [], loading: false, error: null },
@@ -40,6 +63,13 @@ const transactionsSlice = createSlice({
       })
       .addCase(createTransaction.fulfilled, (state, action) => {
         state.items.unshift(action.payload);
+      })
+      .addCase(updateTransaction.fulfilled, (state, action) => {
+        const idx = state.items.findIndex((t) => t.id === action.payload.id);
+        if (idx !== -1) state.items[idx] = action.payload;
+      })
+      .addCase(deleteTransaction.fulfilled, (state, action) => {
+        state.items = state.items.filter((t) => t.id !== action.payload);
       });
   },
 });
