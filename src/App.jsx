@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { selectIsAuthenticated } from "@/store/authSlice";
 
 import Layout from "@/components/layout/Layout";
+import LandingPage from "@/pages/LandingPage";
 import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
 import DashboardPage from "@/pages/DashboardPage";
@@ -24,6 +25,7 @@ function PublicRoute({ children }) {
 export default function App() {
   return (
     <Routes>
+      <Route path="/landing" element={<LandingPage />} />
       <Route
         path="/login"
         element={
