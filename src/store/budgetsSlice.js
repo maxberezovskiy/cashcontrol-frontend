@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { budgetsApi } from "@/api/budgets";
+import { extractApiError } from "@/utils/apiError";
 
 export const fetchBudgets = createAsyncThunk("budgets/fetch", async (_, { rejectWithValue }) => {
   try {
     return await budgetsApi.list();
   } catch (err) {
-    return rejectWithValue(err.response?.data?.detail);
+    return rejectWithValue(extractApiError(err));
   }
 });
 

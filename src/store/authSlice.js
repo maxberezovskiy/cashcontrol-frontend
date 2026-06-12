@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { authApi } from "@/api/auth";
+import { extractApiError } from "@/utils/apiError";
 
 const TOKEN_KEY = "cc_access_token";
 const REFRESH_KEY = "cc_refresh_token";
@@ -10,7 +11,7 @@ export const loginThunk = createAsyncThunk(
     try {
       return await authApi.login(email, password);
     } catch (err) {
-      return rejectWithValue(err.response?.data?.detail || "Login failed");
+      return rejectWithValue(extractApiError(err) || "Login failed");
     }
   }
 );
@@ -21,7 +22,7 @@ export const registerThunk = createAsyncThunk(
     try {
       return await authApi.register(userData);
     } catch (err) {
-      return rejectWithValue(err.response?.data?.detail || "Registration failed");
+      return rejectWithValue(extractApiError(err) || "Registration failed");
     }
   }
 );

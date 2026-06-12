@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateTransaction } from "@/store/transactionsSlice";
 import { selectCategories } from "@/store/categoriesSlice";
 import Modal from "@/components/ui/Modal";
+import { toDateInputValue, dateInputToISO } from "@/utils/date";
 
 const TYPE_LABELS = { income: "Доход", expense: "Расход", transfer: "Перевод" };
 const TYPE_COLORS = { income: "text-primary-600", expense: "text-red-500", transfer: "text-blue-500" };
@@ -21,7 +22,7 @@ export default function EditTransactionModal({ transaction, accountName, onClose
   const [description, setDescription] = useState(transaction.description || "");
   const [note, setNote]               = useState(transaction.note || "");
   const [categoryId, setCategoryId]   = useState(transaction.category_id ?? "");
-  const [date, setDate]               = useState(transaction.date.slice(0, 10));
+  const [date, setDate]               = useState(toDateInputValue(transaction.date));
   const [submitting, setSubmitting]   = useState(false);
   const [error, setError]             = useState(null);
 
@@ -38,7 +39,7 @@ export default function EditTransactionModal({ transaction, accountName, onClose
         description: description.trim() || null,
         note: note.trim() || null,
         category_id: categoryId !== "" ? parseInt(categoryId) : null,
-        date: new Date(date).toISOString(),
+        date: dateInputToISO(date),
       },
     }));
 
@@ -114,7 +115,6 @@ export default function EditTransactionModal({ transaction, accountName, onClose
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Необязательно"
             className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
-            autoFocus
           />
         </div>
 

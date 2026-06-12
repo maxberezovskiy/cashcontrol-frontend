@@ -6,10 +6,7 @@ import { fetchCategories, selectCategories } from "@/store/categoriesSlice";
 import AddTransactionModal from "@/components/transactions/AddTransactionModal";
 import EditTransactionModal from "@/components/transactions/EditTransactionModal";
 import Modal from "@/components/ui/Modal";
-
-function formatMoney(amount) {
-  return new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB", maximumFractionDigits: 0 }).format(amount);
-}
+import { formatMoney } from "@/utils/format";
 
 export default function TransactionsPage() {
   const dispatch = useDispatch();

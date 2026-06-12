@@ -1,10 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBudgets, selectBudgets } from "@/store/budgetsSlice";
-
-function formatMoney(amount) {
-  return new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB", maximumFractionDigits: 0 }).format(amount);
-}
+import { formatMoney } from "@/utils/format";
 
 const PERIOD_LABELS = { monthly: "Месяц", weekly: "Неделя", yearly: "Год" };
 

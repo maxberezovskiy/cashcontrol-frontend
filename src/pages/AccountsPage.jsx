@@ -4,10 +4,7 @@ import { fetchAccounts, selectAccounts, selectTotalBalance } from "@/store/accou
 import { fetchCategories, selectCategories } from "@/store/categoriesSlice";
 import { transactionsApi } from "@/api/transactions";
 import AddAccountModal from "@/components/accounts/AddAccountModal";
-
-function formatMoney(amount) {
-  return new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB", maximumFractionDigits: 0 }).format(amount);
-}
+import { formatMoney } from "@/utils/format";
 
 const TYPE_LABELS = { cash: "Наличные", card: "Карта", deposit: "Депозит", credit: "Кредит" };
 

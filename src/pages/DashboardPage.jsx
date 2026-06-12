@@ -4,12 +4,9 @@ import { fetchAccounts, selectAccounts, selectTotalBalance } from "@/store/accou
 import { fetchTransactions, selectTransactions } from "@/store/transactionsSlice";
 import { fetchBudgets, selectBudgets } from "@/store/budgetsSlice";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import { formatMoney } from "@/utils/format";
 
 const COLORS = ["#22c55e", "#ef4444", "#3b82f6", "#f59e0b", "#8b5cf6"];
-
-function formatMoney(amount) {
-  return new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB", maximumFractionDigits: 0 }).format(amount);
-}
 
 export default function DashboardPage() {
   const dispatch = useDispatch();

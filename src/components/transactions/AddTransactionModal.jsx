@@ -4,6 +4,7 @@ import { createTransaction } from "@/store/transactionsSlice";
 import { selectAccounts } from "@/store/accountsSlice";
 import { selectCategories } from "@/store/categoriesSlice";
 import Modal from "@/components/ui/Modal";
+import { dateInputToISO, toDateInputValue } from "@/utils/date";
 
 const TYPES = [
   { value: "expense", label: "Расход" },
@@ -12,7 +13,7 @@ const TYPES = [
 ];
 
 function today() {
-  return new Date().toISOString().slice(0, 10);
+  return toDateInputValue(new Date());
 }
 
 export default function AddTransactionModal({ onClose }) {
@@ -60,7 +61,7 @@ export default function AddTransactionModal({ onClose }) {
       account_id: parseInt(accountId),
       category_id: categoryId ? parseInt(categoryId) : null,
       to_account_id: type === "transfer" && toAccountId ? parseInt(toAccountId) : null,
-      date: new Date(date).toISOString(),
+      date: dateInputToISO(date),
       description: description.trim() || null,
     };
 

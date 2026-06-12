@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { transactionsApi } from "@/api/transactions";
+import { extractApiError } from "@/utils/apiError";
 
 export const fetchTransactions = createAsyncThunk(
   "transactions/fetch",
@@ -7,7 +8,7 @@ export const fetchTransactions = createAsyncThunk(
     try {
       return await transactionsApi.list(params);
     } catch (err) {
-      return rejectWithValue(err.response?.data?.detail);
+      return rejectWithValue(extractApiError(err));
     }
   }
 );
@@ -18,7 +19,7 @@ export const createTransaction = createAsyncThunk(
     try {
       return await transactionsApi.create(data);
     } catch (err) {
-      return rejectWithValue(err.response?.data?.detail);
+      return rejectWithValue(extractApiError(err));
     }
   }
 );
@@ -29,7 +30,7 @@ export const updateTransaction = createAsyncThunk(
     try {
       return await transactionsApi.update(id, data);
     } catch (err) {
-      return rejectWithValue(err.response?.data?.detail);
+      return rejectWithValue(extractApiError(err));
     }
   }
 );
@@ -41,7 +42,7 @@ export const deleteTransaction = createAsyncThunk(
       await transactionsApi.remove(id);
       return id;
     } catch (err) {
-      return rejectWithValue(err.response?.data?.detail);
+      return rejectWithValue(extractApiError(err));
     }
   }
 );

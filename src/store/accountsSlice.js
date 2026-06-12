@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { accountsApi } from "@/api/accounts";
+import { extractApiError } from "@/utils/apiError";
 
 export const fetchAccounts = createAsyncThunk("accounts/fetch", async (_, { rejectWithValue }) => {
   try {
     return await accountsApi.list();
   } catch (err) {
-    return rejectWithValue(err.response?.data?.detail);
+    return rejectWithValue(extractApiError(err));
   }
 });
 
@@ -13,7 +14,7 @@ export const createAccount = createAsyncThunk("accounts/create", async (data, { 
   try {
     return await accountsApi.create(data);
   } catch (err) {
-    return rejectWithValue(err.response?.data?.detail);
+    return rejectWithValue(extractApiError(err));
   }
 });
 
