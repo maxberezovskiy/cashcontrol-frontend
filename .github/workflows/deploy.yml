@@ -63,7 +63,7 @@ jobs:
           script_stop: true
           script: |
             cd /opt/cashcontrol
-            grep -q '^TAG=' .env && sed -i "s/^TAG=.*/TAG=$TAG/" .env || echo "TAG=$TAG" >> .env
+            grep -q '^FRONTEND_TAG=' .env && sed -i "s/^FRONTEND_TAG=.*/FRONTEND_TAG=$TAG/" .env || echo "FRONTEND_TAG=$TAG" >> .env
             docker compose pull frontend
             docker compose up -d frontend
             # Smoke test: nginx must serve the SPA
