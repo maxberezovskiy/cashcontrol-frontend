@@ -7,6 +7,7 @@ const navItems = [
   { to: "/accounts", label: "Счета", icon: "🏦" },
   { to: "/budgets", label: "Бюджеты", icon: "🎯" },
   { to: "/categories", label: "Категории", icon: "📂" },
+  { to: "/settings", label: "Настройки", icon: "⚙️" },
 ];
 
 export default function Sidebar() {

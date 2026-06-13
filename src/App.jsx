@@ -11,6 +11,7 @@ import TransactionsPage from "@/pages/TransactionsPage";
 import AccountsPage from "@/pages/AccountsPage";
 import BudgetsPage from "@/pages/BudgetsPage";
 import CategoriesPage from "@/pages/CategoriesPage";
+import SettingsPage from "@/pages/SettingsPage";
 
 function PrivateRoute({ children }) {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -55,6 +56,7 @@ export default function App() {
         <Route path="accounts" element={<AccountsPage />} />
         <Route path="budgets" element={<BudgetsPage />} />
         <Route path="categories" element={<CategoriesPage />} />
+        <Route path="settings" element={<SettingsPage />} />
       </Route>
     </Routes>
   );
