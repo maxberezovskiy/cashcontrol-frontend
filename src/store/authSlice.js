@@ -27,6 +27,14 @@ export const registerThunk = createAsyncThunk(
   }
 );
 
+export const fetchMe = createAsyncThunk("auth/me", async (_, { rejectWithValue }) => {
+  try {
+    return await authApi.me();
+  } catch (err) {
+    return rejectWithValue(extractApiError(err));
+  }
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -81,6 +89,12 @@ const authSlice = createSlice({
       .addCase(registerThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(fetchMe.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
+      .addCase(fetchMe.rejected, (state) => {
+        state.user = null;
       });
   },
 });
@@ -89,4 +103,6 @@ export const { logout, setTokens, clearError } = authSlice.actions;
 export const selectIsAuthenticated = (state) => !!state.auth.accessToken;
 export const selectAuthLoading = (state) => state.auth.loading;
 export const selectAuthError = (state) => state.auth.error;
+export const selectCurrentUser = (state) => state.auth.user;
+export const selectIsAdmin = (state) => !!state.auth.user?.is_superuser;
 export default authSlice.reducer;
