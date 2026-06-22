@@ -49,7 +49,7 @@ export default function AdminUserDetailPage() {
     return (
       <div className="space-y-4">
         <Link to="/admin/users" className="text-sm text-primary-600 hover:underline">← К списку</Link>
-        {error ? <div className="bg-red-50 text-red-700 text-sm rounded-lg px-4 py-3">{error}</div>
+        {error ? <div className="bg-danger-50 text-danger-700 text-sm rounded-lg px-4 py-3">{error}</div>
                : <div className="text-gray-400">Загрузка…</div>}
       </div>
     );
@@ -61,11 +61,11 @@ export default function AdminUserDetailPage() {
       <div className="flex items-center gap-3">
         <h1 className="text-2xl font-bold text-gray-900">{user.email}</h1>
         <span className={`text-xs px-2 py-0.5 rounded-full ${user.is_superuser ? "bg-purple-100 text-purple-700" : "bg-gray-100 text-gray-600"}`}>{user.is_superuser ? "admin" : "user"}</span>
-        <span className={`text-xs px-2 py-0.5 rounded-full ${user.is_active ? "bg-green-100 text-green-700" : "bg-red-100 text-red-600"}`}>{user.is_active ? "активен" : "отключён"}</span>
+        <span className={`text-xs px-2 py-0.5 rounded-full ${user.is_active ? "bg-success-100 text-success-700" : "bg-danger-100 text-danger-600"}`}>{user.is_active ? "активен" : "отключён"}</span>
       </div>
 
-      {error && <div className="bg-red-50 text-red-700 text-sm rounded-lg px-4 py-3">{error}</div>}
-      {msg && <div className="bg-green-50 text-green-700 text-sm rounded-lg px-4 py-3">{msg}</div>}
+      {error && <div className="bg-danger-50 text-danger-700 text-sm rounded-lg px-4 py-3">{error}</div>}
+      {msg && <div className="bg-success-50 text-success-700 text-sm rounded-lg px-4 py-3">{msg}</div>}
 
       {/* Профиль */}
       <section className="bg-white rounded-2xl border border-gray-200 p-5 space-y-3">
@@ -88,14 +88,14 @@ export default function AdminUserDetailPage() {
         <h2 className="font-semibold text-gray-800">Управление</h2>
         <div className="flex flex-wrap gap-2">
           {user.is_active ? (
-            <button onClick={() => run(() => adminApi.deactivateUser(id), `Деактивировать ${user.email}?`)} className="px-3 py-2 rounded-lg border border-amber-300 text-amber-700 text-sm hover:bg-amber-50">Деактивировать</button>
+            <button onClick={() => run(() => adminApi.deactivateUser(id), `Деактивировать ${user.email}?`)} className="px-3 py-2 rounded-lg border border-warning-300 text-warning-700 text-sm hover:bg-warning-50">Деактивировать</button>
           ) : (
-            <button onClick={() => run(() => adminApi.activateUser(id))} className="px-3 py-2 rounded-lg border border-green-300 text-green-700 text-sm hover:bg-green-50">Активировать</button>
+            <button onClick={() => run(() => adminApi.activateUser(id))} className="px-3 py-2 rounded-lg border border-success-300 text-success-700 text-sm hover:bg-success-50">Активировать</button>
           )}
           <button onClick={() => run(() => adminApi.setRole(id, user.is_superuser ? "user" : "admin"), `Сменить роль на ${user.is_superuser ? "user" : "admin"}?`)} className="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 text-sm hover:bg-gray-50">
             {user.is_superuser ? "Снять роль admin" : "Назначить admin"}
           </button>
-          <button onClick={() => run(() => adminApi.resetPassword(id), `Отправить ${user.email} письмо для сброса пароля?`, "Письмо для сброса пароля отправлено")} className="px-3 py-2 rounded-lg border border-blue-300 text-blue-700 text-sm hover:bg-blue-50">Сбросить пароль</button>
+          <button onClick={() => run(() => adminApi.resetPassword(id), `Отправить ${user.email} письмо для сброса пароля?`, "Письмо для сброса пароля отправлено")} className="px-3 py-2 rounded-lg border border-primary-300 text-primary-700 text-sm hover:bg-primary-50">Сбросить пароль</button>
         </div>
       </section>
 
@@ -122,7 +122,7 @@ export default function AdminUserDetailPage() {
                 <tr key={t.id}>
                   <td className="py-2 text-gray-500">{new Date(t.date).toLocaleDateString("ru-RU")}</td>
                   <td className="py-2 text-gray-700">{t.description || "—"}</td>
-                  <td className={`py-2 text-right font-semibold ${t.transaction_type === "income" ? "text-primary-600" : "text-red-500"}`}>
+                  <td className={`py-2 text-right font-semibold ${t.transaction_type === "income" ? "text-primary-600" : "text-danger-500"}`}>
                     {t.transaction_type === "income" ? "+" : "−"}{formatMoney(t.amount)}
                   </td>
                 </tr>

@@ -6,7 +6,7 @@ import { fetchBudgets, selectBudgets } from "@/store/budgetsSlice";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { formatMoney } from "@/utils/format";
 
-const COLORS = ["#22c55e", "#ef4444", "#3b82f6", "#f59e0b", "#8b5cf6"];
+const COLORS = ["#2D7093", "#5C8C63", "#B8853D", "#B5604F", "#9CA3AF"];
 
 export default function DashboardPage() {
   const dispatch = useDispatch();
@@ -29,11 +29,12 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <h1 className="text-2xl font-bold text-gray-900">Обзор</h1>
 
-      {/* Balance card */}
-      <div className="bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl p-6 text-white">
-        <p className="text-primary-100 text-sm">Общий баланс</p>
-        <p className="text-4xl font-bold mt-1">{formatMoney(totalBalance)}</p>
-        <p className="text-primary-100 text-sm mt-2">{accounts.length} счетов</p>
+      {/* Balance card — без сплошной цветной заливки: акцент только в подчёркивании */}
+      <div className="bg-white rounded-2xl border border-gray-200 p-6">
+        <p className="text-gray-400 text-sm">Общий баланс</p>
+        <p className="text-4xl font-semibold text-gray-900 mt-1">{formatMoney(totalBalance)}</p>
+        <div className="w-7 h-[3px] bg-primary-500 rounded-full mt-2 mb-2" />
+        <p className="text-gray-400 text-sm">{accounts.length} счетов</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -47,7 +48,7 @@ export default function DashboardPage() {
                   <span className="text-lg">{account.icon || "💳"}</span>
                   <span className="text-sm font-medium text-gray-800">{account.name}</span>
                 </div>
-                <span className={`text-sm font-semibold ${parseFloat(account.balance) >= 0 ? "text-primary-600" : "text-red-500"}`}>
+                <span className={`text-sm font-semibold ${parseFloat(account.balance) >= 0 ? "text-primary-600" : "text-danger-500"}`}>
                   {formatMoney(account.balance)}
                 </span>
               </div>
@@ -88,7 +89,7 @@ export default function DashboardPage() {
                 <p className="text-sm font-medium text-gray-800">{t.description || "Без описания"}</p>
                 <p className="text-xs text-gray-400">{new Date(t.date).toLocaleDateString("ru-RU")}</p>
               </div>
-              <span className={`text-sm font-semibold ${t.transaction_type === "income" ? "text-primary-600" : "text-red-500"}`}>
+              <span className={`text-sm font-semibold ${t.transaction_type === "income" ? "text-primary-600" : "text-danger-500"}`}>
                 {t.transaction_type === "income" ? "+" : "-"}{formatMoney(t.amount)}
               </span>
             </div>

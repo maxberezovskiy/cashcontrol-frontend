@@ -31,14 +31,14 @@ export default function BudgetsPage() {
                 </span>
               </div>
               <div className="flex items-baseline gap-1 mb-3">
-                <span className={`text-lg font-bold ${isOver ? "text-red-500" : "text-gray-900"}`}>
+                <span className={`text-lg font-bold ${isOver ? "text-danger-500" : "text-gray-900"}`}>
                   {formatMoney(spent)}
                 </span>
                 <span className="text-sm text-gray-400">/ {formatMoney(limit)}</span>
               </div>
               <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                 <div
-                  className={`h-full rounded-full transition-all ${isOver ? "bg-red-500" : "bg-primary-500"}`}
+                  className={`h-full rounded-full transition-all ${isOver ? "bg-danger-500" : "bg-success-500"}`}
                   style={{ width: `${pct}%` }}
                 />
               </div>

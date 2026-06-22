@@ -90,7 +90,7 @@ export default function AdminUsersPage() {
       </form>
 
       {(error || actionError) && (
-        <div className="bg-red-50 text-red-700 text-sm rounded-lg px-4 py-3">{actionError || error}</div>
+        <div className="bg-danger-50 text-danger-700 text-sm rounded-lg px-4 py-3">{actionError || error}</div>
       )}
 
       <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
@@ -117,17 +117,17 @@ export default function AdminUsersPage() {
                   </span>
                 </td>
                 <td className="px-4 py-3">
-                  <span className={`text-xs px-2 py-0.5 rounded-full ${u.is_active ? "bg-green-100 text-green-700" : "bg-red-100 text-red-600"}`}>
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${u.is_active ? "bg-success-100 text-success-700" : "bg-danger-100 text-danger-600"}`}>
                     {u.is_active ? "активен" : "отключён"}
                   </span>
                 </td>
                 <td className="px-4 py-3 text-right space-x-2 whitespace-nowrap">
                   {u.is_active ? (
-                    <button onClick={() => doAction(() => adminApi.deactivateUser(u.id), `Деактивировать ${u.email}?`)} className="text-xs text-amber-600 hover:underline">Отключить</button>
+                    <button onClick={() => doAction(() => adminApi.deactivateUser(u.id), `Деактивировать ${u.email}?`)} className="text-xs text-warning-600 hover:underline">Отключить</button>
                   ) : (
-                    <button onClick={() => doAction(() => adminApi.activateUser(u.id))} className="text-xs text-green-600 hover:underline">Включить</button>
+                    <button onClick={() => doAction(() => adminApi.activateUser(u.id))} className="text-xs text-success-600 hover:underline">Включить</button>
                   )}
-                  <button onClick={() => doAction(() => adminApi.deleteUser(u.id), `Удалить ${u.email}? Будут безвозвратно удалены ВСЕ его счета, транзакции и бюджеты.`)} className="text-xs text-red-600 hover:underline">Удалить</button>
+                  <button onClick={() => doAction(() => adminApi.deleteUser(u.id), `Удалить ${u.email}? Будут безвозвратно удалены ВСЕ его счета, транзакции и бюджеты.`)} className="text-xs text-danger-600 hover:underline">Удалить</button>
                 </td>
               </tr>
             ))}

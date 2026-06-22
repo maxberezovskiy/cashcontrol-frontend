@@ -62,7 +62,7 @@ export default function TransactionsPage() {
         <Modal title="Удалить транзакцию?" onClose={() => setDeleting(null)}>
           <p className="text-sm text-gray-600 mb-1">
             {deleting.description || "Без описания"} —{" "}
-            <span className={deleting.transaction_type === "income" ? "text-primary-600 font-semibold" : "text-red-500 font-semibold"}>
+            <span className={deleting.transaction_type === "income" ? "text-primary-600 font-semibold" : "text-danger-500 font-semibold"}>
               {deleting.transaction_type === "income" ? "+" : "−"}{formatMoney(deleting.amount)}
             </span>
           </p>
@@ -77,7 +77,7 @@ export default function TransactionsPage() {
             <button
               onClick={handleDelete}
               disabled={deleteLoading}
-              className="flex-1 py-2.5 rounded-xl bg-red-500 text-white text-sm font-medium hover:bg-red-600 disabled:opacity-60"
+              className="flex-1 py-2.5 rounded-xl bg-danger-500 text-white text-sm font-medium hover:bg-danger-600 disabled:opacity-60"
             >
               {deleteLoading ? "Удаление…" : "Удалить"}
             </button>
@@ -118,7 +118,7 @@ export default function TransactionsPage() {
               }`}
               style={
                 activeAccountId === a.id
-                  ? { backgroundColor: a.color || "#22c55e", borderColor: a.color || "#22c55e" }
+                  ? { backgroundColor: a.color || "#2D7093", borderColor: a.color || "#2D7093" }
                   : {}
               }
             >
@@ -155,14 +155,14 @@ export default function TransactionsPage() {
                   <td className="px-5 py-3 font-medium text-gray-800">{t.description || "—"}</td>
                   <td className="px-5 py-3 text-gray-500">{getAccount(t.account_id)?.name || "—"}</td>
                   <td className="px-5 py-3 text-gray-500">{getCategoryName(t.category_id)}</td>
-                  <td className={`px-5 py-3 text-right font-semibold ${t.transaction_type === "income" ? "text-primary-600" : "text-red-500"}`}>
+                  <td className={`px-5 py-3 text-right font-semibold ${t.transaction_type === "income" ? "text-primary-600" : "text-danger-500"}`}>
                     {t.transaction_type === "income" ? "+" : "−"}{formatMoney(t.amount)}
                   </td>
                   <td className="px-3 py-3">
                     <div className="flex items-center justify-end opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
                         onClick={(e) => { e.stopPropagation(); setDeleting(t); }}
-                        className="p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50"
+                        className="p-1.5 rounded-lg text-gray-400 hover:text-danger-500 hover:bg-danger-50"
                         title="Удалить"
                       >
                         🗑️

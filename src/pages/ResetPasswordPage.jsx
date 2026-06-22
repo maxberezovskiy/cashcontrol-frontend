@@ -34,20 +34,20 @@ export default function ResetPasswordPage() {
         <p className="text-sm text-gray-500 mb-6">Придумайте новый пароль для входа.</p>
 
         {!token ? (
-          <div className="bg-red-50 text-red-700 text-sm rounded-lg px-4 py-3">
+          <div className="bg-danger-50 text-danger-700 text-sm rounded-lg px-4 py-3">
             Ссылка недействительна — отсутствует токен.{" "}
             <Link to="/forgot-password" className="font-medium underline">
               Запросить новую
             </Link>
           </div>
         ) : done ? (
-          <div className="bg-green-50 text-green-700 text-sm rounded-lg px-4 py-3">
+          <div className="bg-success-50 text-success-700 text-sm rounded-lg px-4 py-3">
             Пароль обновлён. Перенаправляем на страницу входа…
           </div>
         ) : (
           <>
             {error && (
-              <div className="bg-red-50 text-red-700 text-sm rounded-lg px-4 py-3 mb-4">{error}</div>
+              <div className="bg-danger-50 text-danger-700 text-sm rounded-lg px-4 py-3 mb-4">{error}</div>
             )}
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
@@ -61,7 +61,7 @@ export default function ResetPasswordPage() {
                   className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                   placeholder="••••••••"
                 />
-                {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
+                {errors.password && <p className="text-danger-500 text-xs mt-1">{errors.password.message}</p>}
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Повторите пароль</label>
@@ -74,7 +74,7 @@ export default function ResetPasswordPage() {
                   className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                   placeholder="••••••••"
                 />
-                {errors.confirm && <p className="text-red-500 text-xs mt-1">{errors.confirm.message}</p>}
+                {errors.confirm && <p className="text-danger-500 text-xs mt-1">{errors.confirm.message}</p>}
               </div>
               <button
                 type="submit"

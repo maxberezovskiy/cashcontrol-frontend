@@ -89,7 +89,7 @@ function TelegramCard() {
       </div>
 
       {error && (
-        <div className="mb-3 rounded-lg bg-red-50 text-red-700 text-sm px-3 py-2">
+        <div className="mb-3 rounded-lg bg-danger-50 text-danger-700 text-sm px-3 py-2">
           {error}
         </div>
       )}

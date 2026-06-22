@@ -4,8 +4,8 @@ import { createCategory } from "@/store/categoriesSlice";
 import Modal from "@/components/ui/Modal";
 
 const PRESET_COLORS = [
-  "#22c55e", "#3b82f6", "#f59e0b", "#ef4444",
-  "#8b5cf6", "#ec4899", "#14b8a6", "#64748b",
+  "#2D7093", "#5C8C63", "#B8853D", "#B5604F",
+  "#7D6B8F", "#4F7C7A", "#9C8268", "#6B7177",
 ];
 
 const EXPENSE_ICONS = ["🛒", "🍕", "🚗", "💊", "👕", "🏠", "🎬", "✈️", "📚", "💇"];
@@ -17,7 +17,7 @@ export default function AddCategoryModal({ defaultType = "expense", onClose }) {
   const [type, setType]     = useState(defaultType);
   const [name, setName]     = useState("");
   const [icon, setIcon]     = useState(defaultType === "expense" ? "🛒" : "💼");
-  const [color, setColor]   = useState("#22c55e");
+  const [color, setColor]   = useState("#2D7093");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError]   = useState(null);
 
@@ -60,7 +60,7 @@ export default function AddCategoryModal({ defaultType = "expense", onClose }) {
             type="button"
             onClick={() => handleTypeChange("expense")}
             className={`flex-1 py-2 text-sm font-medium transition-colors ${
-              type === "expense" ? "bg-red-500 text-white" : "text-gray-500 hover:bg-gray-50"
+              type === "expense" ? "bg-danger-500 text-white" : "text-gray-500 hover:bg-gray-50"
             }`}
           >
             Расход
@@ -139,7 +139,7 @@ export default function AddCategoryModal({ defaultType = "expense", onClose }) {
           </span>
         </div>
 
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error && <p className="text-sm text-danger-500">{error}</p>}
 
         <div className="flex gap-3 pt-1">
           <button

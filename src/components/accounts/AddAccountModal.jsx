@@ -11,8 +11,8 @@ const TYPES = [
 ];
 
 const PRESET_COLORS = [
-  "#22c55e", "#3b82f6", "#f59e0b", "#ef4444",
-  "#8b5cf6", "#ec4899", "#14b8a6", "#64748b",
+  "#2D7093", "#5C8C63", "#B8853D", "#B5604F",
+  "#7D6B8F", "#4F7C7A", "#9C8268", "#6B7177",
 ];
 
 const PRESET_ICONS = ["💳", "💵", "💰", "🏦", "💼", "🏠", "🚗", "📱"];
@@ -25,7 +25,7 @@ export default function AddAccountModal({ onClose }) {
   const [balance, setBalance]   = useState("0");
   const [currency, setCurrency] = useState("RUB");
   const [icon, setIcon]         = useState("💳");
-  const [color, setColor]       = useState("#22c55e");
+  const [color, setColor]       = useState("#2D7093");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError]       = useState(null);
 
@@ -170,7 +170,7 @@ export default function AddAccountModal({ onClose }) {
           </span>
         </div>
 
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error && <p className="text-sm text-danger-500">{error}</p>}
 
         <div className="flex gap-3 pt-1">
           <button

@@ -71,7 +71,7 @@ export default function AccountsPage() {
                   ? "border-primary-400 shadow-md ring-2 ring-primary-100"
                   : "border-gray-200 hover:shadow-md hover:-translate-y-0.5"
               }`}
-              style={{ borderLeft: `4px solid ${account.color || "#22c55e"}` }}
+              style={{ borderLeft: `4px solid ${account.color || "#2D7093"}` }}
             >
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-2xl">{account.icon || "💳"}</span>
@@ -83,7 +83,7 @@ export default function AccountsPage() {
                   <span className="ml-auto text-xs text-primary-600 font-medium">Выбран</span>
                 )}
               </div>
-              <p className={`text-xl font-bold ${parseFloat(account.balance) >= 0 ? "text-primary-600" : "text-red-500"}`}>
+              <p className={`text-xl font-bold ${parseFloat(account.balance) >= 0 ? "text-primary-600" : "text-danger-500"}`}>
                 {formatMoney(account.balance)}
               </p>
               <p className="text-xs text-gray-400 mt-1">{account.currency}</p>
@@ -138,7 +138,7 @@ export default function AccountsPage() {
                     <td className="px-5 py-3 text-gray-500">{new Date(t.date).toLocaleDateString("ru-RU")}</td>
                     <td className="px-5 py-3 font-medium text-gray-800">{t.description || "—"}</td>
                     <td className="px-5 py-3 text-gray-500">{getCategoryName(t.category_id)}</td>
-                    <td className={`px-5 py-3 text-right font-semibold ${t.transaction_type === "income" ? "text-primary-600" : "text-red-500"}`}>
+                    <td className={`px-5 py-3 text-right font-semibold ${t.transaction_type === "income" ? "text-primary-600" : "text-danger-500"}`}>
                       {t.transaction_type === "income" ? "+" : "−"}{formatMoney(t.amount)}
                     </td>
                   </tr>

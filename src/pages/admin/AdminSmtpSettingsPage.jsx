@@ -83,8 +83,8 @@ export default function AdminSmtpSettingsPage() {
     <div className="space-y-6 max-w-xl">
       <h1 className="text-2xl font-bold text-gray-900">Настройки почты</h1>
 
-      {error && <div className="bg-red-50 text-red-700 text-sm rounded-lg px-4 py-3">{error}</div>}
-      {msg && <div className="bg-green-50 text-green-700 text-sm rounded-lg px-4 py-3">{msg}</div>}
+      {error && <div className="bg-danger-50 text-danger-700 text-sm rounded-lg px-4 py-3">{error}</div>}
+      {msg && <div className="bg-success-50 text-success-700 text-sm rounded-lg px-4 py-3">{msg}</div>}
 
       <section className="bg-white rounded-2xl border border-gray-200 p-5 space-y-4">
         <div>
@@ -105,7 +105,7 @@ export default function AdminSmtpSettingsPage() {
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-500 mb-1">
-                API-ключ {apiKeySet && <span className="text-green-600">(задан)</span>}
+                API-ключ {apiKeySet && <span className="text-success-600">(задан)</span>}
               </label>
               <input type="password" value={form.api_key} onChange={set("api_key")} className={field}
                      placeholder={apiKeySet ? "оставьте пустым, чтобы не менять" : "xkeysib-…"} />
@@ -132,7 +132,7 @@ export default function AdminSmtpSettingsPage() {
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-500 mb-1">
-                Пароль {passwordSet && <span className="text-green-600">(задан)</span>}
+                Пароль {passwordSet && <span className="text-success-600">(задан)</span>}
               </label>
               <input type="password" value={form.password} onChange={set("password")} className={field}
                      placeholder={passwordSet ? "оставьте пустым, чтобы не менять" : ""} />

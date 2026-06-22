@@ -6,7 +6,7 @@ import Modal from "@/components/ui/Modal";
 import { toDateInputValue, dateInputToISO } from "@/utils/date";
 
 const TYPE_LABELS = { income: "Доход", expense: "Расход", transfer: "Перевод" };
-const TYPE_COLORS = { income: "text-primary-600", expense: "text-red-500", transfer: "text-blue-500" };
+const TYPE_COLORS = { income: "text-primary-600", expense: "text-danger-600", transfer: "text-gray-500" };
 
 export default function EditTransactionModal({ transaction, accountName, onClose }) {
   const dispatch = useDispatch();
@@ -130,7 +130,7 @@ export default function EditTransactionModal({ transaction, accountName, onClose
           />
         </div>
 
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error && <p className="text-sm text-danger-500">{error}</p>}
 
         <div className="flex gap-3 pt-1">
           <button
