@@ -100,7 +100,7 @@ export default function EditTransactionModal({ transaction, accountName, onClose
             >
               <option value="">— Без категории —</option>
               {filteredCategories.map((c) => (
-                <option key={c.id} value={c.id}>{c.icon ? `${c.icon} ` : ""}{c.name}</option>
+                <option key={c.id} value={c.id}>{c.name}</option>
               ))}
             </select>
           </div>

@@ -45,7 +45,6 @@ export default function DashboardPage() {
             {accounts.map((account) => (
               <div key={account.id} className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">{account.icon || "💳"}</span>
                   <span className="text-sm font-medium text-gray-800">{account.name}</span>
                 </div>
                 <span className={`text-sm font-semibold ${parseFloat(account.balance) >= 0 ? "text-primary-600" : "text-danger-500"}`}>

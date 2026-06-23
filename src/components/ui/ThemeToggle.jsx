@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Sun, Moon } from "lucide-react";
 
 const KEY = "cc_theme";
 
@@ -28,11 +29,11 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="text-lg leading-none text-gray-500 hover:text-gray-900 transition-colors"
+      className="flex items-center justify-center w-8 h-8 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
       title={isDark ? "Светлая тема" : "Тёмная тема"}
       aria-label="Переключить тему"
     >
-      {isDark ? "☀️" : "🌙"}
+      {isDark ? <Sun size={16} /> : <Moon size={16} />}
     </button>
   );
 }

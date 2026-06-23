@@ -19,10 +19,9 @@ function CategorySection({ title, categories, type, onAdd }) {
         {categories.map((cat) => (
           <span
             key={cat.id}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm"
+            className="inline-flex items-center px-3 py-1.5 rounded-full text-sm"
             style={{ backgroundColor: cat.color ? cat.color + "20" : "#f3f4f6", color: cat.color || "#374151" }}
           >
-            {cat.icon && <span>{cat.icon}</span>}
             {cat.name}
           </span>
         ))}

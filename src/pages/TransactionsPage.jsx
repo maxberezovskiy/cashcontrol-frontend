@@ -6,6 +6,7 @@ import { fetchCategories, selectCategories } from "@/store/categoriesSlice";
 import AddTransactionModal from "@/components/transactions/AddTransactionModal";
 import EditTransactionModal from "@/components/transactions/EditTransactionModal";
 import Modal from "@/components/ui/Modal";
+import { Trash2 } from "lucide-react";
 import { formatMoney } from "@/utils/format";
 
 export default function TransactionsPage() {
@@ -122,7 +123,6 @@ export default function TransactionsPage() {
                   : {}
               }
             >
-              {a.icon && <span>{a.icon}</span>}
               {a.name}
             </button>
           ))}
@@ -165,7 +165,7 @@ export default function TransactionsPage() {
                         className="p-1.5 rounded-lg text-gray-400 hover:text-danger-500 hover:bg-danger-50"
                         title="Удалить"
                       >
-                        🗑️
+                        <Trash2 size={15} />
                       </button>
                     </div>
                   </td>

@@ -8,25 +8,14 @@ const PRESET_COLORS = [
   "#7D6B8F", "#4F7C7A", "#9C8268", "#6B7177",
 ];
 
-const EXPENSE_ICONS = ["🛒", "🍕", "🚗", "💊", "👕", "🏠", "🎬", "✈️", "📚", "💇"];
-const INCOME_ICONS  = ["💼", "💰", "📈", "🏆", "🎁", "💳", "🏦", "🤝", "🖥️", "🌱"];
-
 export default function AddCategoryModal({ defaultType = "expense", onClose }) {
   const dispatch = useDispatch();
 
-  const [type, setType]     = useState(defaultType);
-  const [name, setName]     = useState("");
-  const [icon, setIcon]     = useState(defaultType === "expense" ? "🛒" : "💼");
-  const [color, setColor]   = useState("#2D7093");
+  const [type, setType] = useState(defaultType);
+  const [name, setName] = useState("");
+  const [color, setColor] = useState("#2D7093");
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError]   = useState(null);
-
-  const icons = type === "expense" ? EXPENSE_ICONS : INCOME_ICONS;
-
-  function handleTypeChange(newType) {
-    setType(newType);
-    setIcon(newType === "expense" ? EXPENSE_ICONS[0] : INCOME_ICONS[0]);
-  }
+  const [error, setError] = useState(null);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -38,7 +27,6 @@ export default function AddCategoryModal({ defaultType = "expense", onClose }) {
     const result = await dispatch(createCategory({
       name: name.trim(),
       category_type: type,
-      icon,
       color,
     }));
 
@@ -58,7 +46,7 @@ export default function AddCategoryModal({ defaultType = "expense", onClose }) {
         <div className="flex rounded-xl overflow-hidden border border-gray-200">
           <button
             type="button"
-            onClick={() => handleTypeChange("expense")}
+            onClick={() => setType("expense")}
             className={`flex-1 py-2 text-sm font-medium transition-colors ${
               type === "expense" ? "bg-danger-500 text-white" : "text-gray-500 hover:bg-gray-50"
             }`}
@@ -67,7 +55,7 @@ export default function AddCategoryModal({ defaultType = "expense", onClose }) {
           </button>
           <button
             type="button"
-            onClick={() => handleTypeChange("income")}
+            onClick={() => setType("income")}
             className={`flex-1 py-2 text-sm font-medium transition-colors ${
               type === "income" ? "bg-primary-500 text-white" : "text-gray-500 hover:bg-gray-50"
             }`}
@@ -87,25 +75,6 @@ export default function AddCategoryModal({ defaultType = "expense", onClose }) {
             className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
             autoFocus
           />
-        </div>
-
-        {/* Icons */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Иконка</label>
-          <div className="flex gap-2 flex-wrap">
-            {icons.map((em) => (
-              <button
-                key={em}
-                type="button"
-                onClick={() => setIcon(em)}
-                className={`w-9 h-9 rounded-lg text-xl flex items-center justify-center border transition-colors ${
-                  icon === em ? "border-primary-500 bg-primary-50" : "border-gray-200 hover:bg-gray-50"
-                }`}
-              >
-                {em}
-              </button>
-            ))}
-          </div>
         </div>
 
         {/* Color */}
@@ -129,10 +98,10 @@ export default function AddCategoryModal({ defaultType = "expense", onClose }) {
         {/* Preview */}
         <div className="rounded-xl border border-gray-100 bg-gray-50 px-4 py-3 flex items-center gap-3">
           <span
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium"
+            className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium"
             style={{ backgroundColor: color + "25", color }}
           >
-            {icon} {name || "Название"}
+            {name || "Название"}
           </span>
           <span className="text-xs text-gray-400 ml-auto">
             {type === "expense" ? "Расход" : "Доход"}

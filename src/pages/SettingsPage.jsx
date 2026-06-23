@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { MessageCircle, CheckCircle } from "lucide-react";
 import { telegramApi } from "@/api/telegram";
 import { extractApiError } from "@/utils/apiError";
 
@@ -79,7 +80,9 @@ function TelegramCard() {
   return (
     <div className="bg-white rounded-2xl border border-gray-200 p-5 max-w-xl">
       <div className="flex items-center gap-3 mb-4">
-        <span className="text-2xl">📲</span>
+        <span className="w-9 h-9 flex items-center justify-center rounded-xl bg-primary-50 text-primary-600">
+          <MessageCircle size={18} />
+        </span>
         <div>
           <h2 className="text-base font-semibold text-gray-900">Telegram-бот</h2>
           <p className="text-xs text-gray-500">
@@ -99,7 +102,7 @@ function TelegramCard() {
       ) : status?.linked ? (
         <div className="space-y-3">
           <div className="inline-flex items-center gap-2 rounded-full bg-primary-50 text-primary-700 text-sm px-3 py-1">
-            <span>✅</span> Аккаунт привязан
+            <CheckCircle size={14} /> Аккаунт привязан
           </div>
           <div>
             <button

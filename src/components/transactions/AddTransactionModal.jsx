@@ -4,6 +4,7 @@ import { createTransaction } from "@/store/transactionsSlice";
 import { selectAccounts } from "@/store/accountsSlice";
 import { selectCategories } from "@/store/categoriesSlice";
 import Modal from "@/components/ui/Modal";
+import { Wallet } from "lucide-react";
 import { dateInputToISO, toDateInputValue } from "@/utils/date";
 
 const TYPES = [
@@ -79,7 +80,7 @@ export default function AddTransactionModal({ onClose }) {
     return (
       <Modal title="Новая транзакция" onClose={onClose}>
         <div className="py-6 text-center space-y-3">
-          <p className="text-4xl">🏦</p>
+          <Wallet size={36} className="mx-auto text-gray-300" />
           <p className="text-sm font-medium text-gray-700">Сначала создайте счёт</p>
           <p className="text-xs text-gray-400">Перейдите в раздел «Счета» и добавьте хотя бы один счёт.</p>
         </div>
@@ -132,7 +133,7 @@ export default function AddTransactionModal({ onClose }) {
             className="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
           >
             {accounts.map((a) => (
-              <option key={a.id} value={a.id}>{a.icon ? `${a.icon} ` : ""}{a.name}</option>
+              <option key={a.id} value={a.id}>{a.name}</option>
             ))}
           </select>
         </div>
@@ -148,7 +149,7 @@ export default function AddTransactionModal({ onClose }) {
             >
               <option value="">— Выберите —</option>
               {accounts.filter((a) => a.id !== parseInt(accountId)).map((a) => (
-                <option key={a.id} value={a.id}>{a.icon ? `${a.icon} ` : ""}{a.name}</option>
+                <option key={a.id} value={a.id}>{a.name}</option>
               ))}
             </select>
           </div>
@@ -165,7 +166,7 @@ export default function AddTransactionModal({ onClose }) {
             >
               <option value="">— Без категории —</option>
               {filteredCategories.map((c) => (
-                <option key={c.id} value={c.id}>{c.icon ? `${c.icon} ` : ""}{c.name}</option>
+                <option key={c.id} value={c.id}>{c.name}</option>
               ))}
             </select>
           </div>

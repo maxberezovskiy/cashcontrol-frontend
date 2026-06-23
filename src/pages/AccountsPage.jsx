@@ -74,7 +74,6 @@ export default function AccountsPage() {
               style={{ borderLeft: `4px solid ${account.color || "#2D7093"}` }}
             >
               <div className="flex items-center gap-2 mb-3">
-                <span className="text-2xl">{account.icon || "💳"}</span>
                 <div>
                   <p className="font-semibold text-gray-800">{account.name}</p>
                   <p className="text-xs text-gray-400">{TYPE_LABELS[account.account_type] || account.account_type}</p>
@@ -104,7 +103,6 @@ export default function AccountsPage() {
         <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
           <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
             <div className="flex items-center gap-2">
-              <span>{selectedAccount.icon || "💳"}</span>
               <h2 className="font-semibold text-gray-800">{selectedAccount.name}</h2>
               <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
                 {accountTransactions.length} транзакций

@@ -105,7 +105,7 @@ export default function AdminUserDetailPage() {
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {accounts.map((a) => (
             <div key={a.id} className="border border-gray-200 rounded-xl p-3">
-              <p className="text-sm font-medium text-gray-700">{a.icon || "💳"} {a.name}</p>
+              <p className="text-sm font-medium text-gray-700">{a.name}</p>
               <p className="text-lg font-bold text-gray-900">{formatMoney(a.balance)}</p>
               <p className="text-xs text-gray-400">{a.currency}</p>
             </div>

@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Banknote, CreditCard, PiggyBank, Receipt } from "lucide-react";
 import { createAccount } from "@/store/accountsSlice";
 import Modal from "@/components/ui/Modal";
 
 const TYPES = [
-  { value: "cash",    label: "Наличные", icon: "💵" },
-  { value: "card",    label: "Карта",    icon: "💳" },
-  { value: "deposit", label: "Депозит",  icon: "🏦" },
-  { value: "credit",  label: "Кредит",   icon: "📋" },
+  { value: "cash",    label: "Наличные", icon: "Banknote"  },
+  { value: "card",    label: "Карта",    icon: "CreditCard" },
+  { value: "deposit", label: "Депозит",  icon: "PiggyBank"  },
+  { value: "credit",  label: "Кредит",   icon: "Receipt"    },
 ];
 
 const PRESET_COLORS = [
@@ -15,7 +16,8 @@ const PRESET_COLORS = [
   "#7D6B8F", "#4F7C7A", "#9C8268", "#6B7177",
 ];
 
-const PRESET_ICONS = ["💳", "💵", "💰", "🏦", "💼", "🏠", "🚗", "📱"];
+// Иконки только для выбора типа счёта (не сохраняются — у счёта своей иконки нет).
+const ICON_MAP = { Banknote, CreditCard, PiggyBank, Receipt };
 
 export default function AddAccountModal({ onClose }) {
   const dispatch = useDispatch();
@@ -24,7 +26,6 @@ export default function AddAccountModal({ onClose }) {
   const [type, setType]         = useState("card");
   const [balance, setBalance]   = useState("0");
   const [currency, setCurrency] = useState("RUB");
-  const [icon, setIcon]         = useState("💳");
   const [color, setColor]       = useState("#2D7093");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError]       = useState(null);
@@ -41,7 +42,6 @@ export default function AddAccountModal({ onClose }) {
       account_type: type,
       balance: parseFloat(balance) || 0,
       currency: currency.trim() || "RUB",
-      icon,
       color,
     }));
 
@@ -61,21 +61,24 @@ export default function AddAccountModal({ onClose }) {
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Тип счёта</label>
           <div className="grid grid-cols-4 gap-2">
-            {TYPES.map((t) => (
-              <button
-                key={t.value}
-                type="button"
-                onClick={() => { setType(t.value); setIcon(t.icon); }}
-                className={`flex flex-col items-center gap-1 py-2.5 rounded-xl border text-xs font-medium transition-colors ${
-                  type === t.value
-                    ? "border-primary-500 bg-primary-50 text-primary-700"
-                    : "border-gray-200 text-gray-500 hover:bg-gray-50"
-                }`}
-              >
-                <span className="text-xl">{t.icon}</span>
-                {t.label}
-              </button>
-            ))}
+            {TYPES.map((t) => {
+              const Ic = ICON_MAP[t.icon];
+              return (
+                <button
+                  key={t.value}
+                  type="button"
+                  onClick={() => setType(t.value)}
+                  className={`flex flex-col items-center gap-1.5 py-2.5 rounded-xl border text-xs font-medium transition-colors ${
+                    type === t.value
+                      ? "border-primary-500 bg-primary-50 text-primary-700"
+                      : "border-gray-200 text-gray-500 hover:bg-gray-50"
+                  }`}
+                >
+                  {Ic && <Ic size={18} />}
+                  {t.label}
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -116,25 +119,6 @@ export default function AddAccountModal({ onClose }) {
           </div>
         </div>
 
-        {/* Icon */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Иконка</label>
-          <div className="flex gap-2 flex-wrap">
-            {PRESET_ICONS.map((em) => (
-              <button
-                key={em}
-                type="button"
-                onClick={() => setIcon(em)}
-                className={`w-9 h-9 rounded-lg text-xl flex items-center justify-center border transition-colors ${
-                  icon === em ? "border-primary-500 bg-primary-50" : "border-gray-200 hover:bg-gray-50"
-                }`}
-              >
-                {em}
-              </button>
-            ))}
-          </div>
-        </div>
-
         {/* Color */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">Цвет</label>
@@ -156,11 +140,9 @@ export default function AddAccountModal({ onClose }) {
         {/* Preview */}
         <div className="rounded-xl border border-gray-100 bg-gray-50 px-4 py-3 flex items-center gap-3">
           <span
-            className="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
+            className="w-10 h-10 rounded-xl shrink-0"
             style={{ backgroundColor: color + "25" }}
-          >
-            {icon}
-          </span>
+          />
           <div>
             <p className="text-sm font-semibold text-gray-800">{name || "Название счёта"}</p>
             <p className="text-xs text-gray-400">{TYPES.find((t) => t.value === type)?.label} · {currency}</p>
